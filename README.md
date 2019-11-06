@@ -234,3 +234,23 @@ sum(chords_lans)/len(chords_lans)
 Chords Progression Lengths Distribution:
 
 ![Chords Progression Lengths Distribution](F:\Projects\Magisterka\images\Chords Progression Lengths Distribution.png)
+
+Pierwszy eksperyment z przewidywaniem ósmego akordu:
+
+```
+Model: "sequential_7"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lstm_6 (LSTM)                (None, 32)                5760      
+_________________________________________________________________
+dense_6 (Dense)              (None, 12)                396       
+=================================================================
+Total params: 6,156
+Trainable params: 6,156
+Non-trainable params: 0
+_________________________________________________________________
+None
+Accuracy: 72.68%
+```
+
