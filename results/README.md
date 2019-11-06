@@ -14,7 +14,13 @@
 
 - [Gypsy-Jazz](https://www.irealb.com/forums/showthread.php?215-Gypsy-Jazz)
 
-  
+
+Used Libraries:
+
+- pyRealParser
+- BeautifulSoup
+- urllib
+- pyChord
 
 song url:
 
