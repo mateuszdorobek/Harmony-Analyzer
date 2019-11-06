@@ -231,3 +231,6 @@ sum(chords_lans)/len(chords_lans)
 
 średnio 48.5 akordu na utwór.
 
+Chords Progression Lengths Distribution:
+
+![Chords Progression Lengths Distribution](F:\Projects\Magisterka\images\Chords Progression Lengths Distribution.png)
