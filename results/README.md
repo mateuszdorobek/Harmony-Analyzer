@@ -21,6 +21,7 @@ Used Libraries:
 - BeautifulSoup
 - urllib
 - pyChord
+- music21
 
 song url:
 
