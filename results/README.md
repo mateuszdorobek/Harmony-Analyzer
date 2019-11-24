@@ -240,7 +240,7 @@ sum(chords_lans)/len(chords_lans)
 
 Chords Progression Lengths Distribution:
 
-![Chords Progression Lengths Distribution](F:\Projects\Magisterka\images\Chords Progression Lengths Distribution.png)
+![Chords Progression Lengths Distribution](https://github.com/SaxMan96/Harmony-Analyzer/blob/master/images/Chords%20Progression%20Lengths%20Distribution.png?raw=true)
 
 Pierwszy eksperyment z przewidywaniem ósmego akordu:
 
