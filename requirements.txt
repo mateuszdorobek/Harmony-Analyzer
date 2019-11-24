@@ -1,0 +1,10 @@
+pyRealParser
+BeautifulSoup
+urllib
+pyChord
+music21
+tensorflow-gpu
+scikit-learn
+matplotlib
+pandas
+numpy

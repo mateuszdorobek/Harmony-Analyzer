@@ -261,3 +261,54 @@ None
 Accuracy: 72.68%
 ```
 
+Thresholduje wyjście:
+
+```python
+pred = loaded_model.predict(X_test[0].reshape(1,7,12))[0]
+print(pred)
+pred = threshold_prediction(pred, 4)
+print(pred)
+```
+
+```
+[0.4242173  0.4184368  0.23916304 0.45015854 0.13999394 0.58093506
+ 0.1970064  0.22598988 0.5192512  0.14264661 0.38363022 0.17546797]
+[1 0 0 1 0 1 0 0 1 0 0 0]
+```
+
+Decodowanie:
+
+```python
+print(X_train[0][0])
+print(decode(X_train[0][0]))
+```
+
+```
+[0 0 1 0 0 1 0 1 0 0 0 1]
+[2, 5, 7, 11]
+```
+
+Pierwsze wyniki predictowania:
+
+```
+A-maj7/C  | A#m7/C#  | A-maj7/C  | Fm7/C
+Fm/C  | Fm/C  | C7  | Fm/CaddB-
+Gm/D  | B-7/D  | Fm/C  | Gm7/D
+E-  | A-7/C  | A-7/C  | A-/CaddA
+Gm7/D  | C7  | F/C  | F/CaddB-
+E-  | Gm/D  | Cm  | Cm7
+C7  | F-+/CaddB-  | F/C  | B-/C
+B-/D  | E-+  | C7  | Chord Symbol Cannot Be Identified
+F7/C  | B-/D  | B-/D  | B-/C
+E-m  | A#m7/C#  | E-m  | Chord Symbol Cannot Be Identified
+Gm7/D  | C7  | F/C  | B-/C
+D/o7/C  | E-+addF  | Cm7  | B-/C
+F9/CaddB  | B-7/D  | Cm7addD-,A-,F  | D-maj7/C
+A7/C#  | D7/C  | D7/C  | Chord Symbol Cannot Be Identified
+Fm7/C  | B-7/D  | E-maj7/D  | D/o7/C
+Am7/C  | E7/D  | E7/D  | CaddD
+B-7/D  | E-maj7/D  | B-/D  | Cm7
+B-/D  | A7/C#  | B-/D  | E-addF
+Gm7/D  | Gm7/D  | Cm7  | B-/C
+A7/C#  | Dm  | G7/D  | Chord Symbol Cannot Be Identified
+```
