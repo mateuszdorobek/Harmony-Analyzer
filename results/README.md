@@ -186,7 +186,7 @@ Aby dodać do data frame'a dzielę sobie akordy na coś takiego i  przetrzymuję
 Dobra jednak nie jednak z akordów robie od razu numery nut:
 
 ```
-Bb7	Eb7	Bb7	Bb7
+Bb7	Eb7	Bb7	Bb7-
 Eb7	Eb7	Bb7	D-7	G7
 G7	C-7	F7	Bb7	G7	C-7	F7
 ```
@@ -242,7 +242,7 @@ Chords Progression Lengths Distribution:
 
 ![Chords Progression Lengths Distribution](https://github.com/SaxMan96/Harmony-Analyzer/blob/master/images/Chords%20Progression%20Lengths%20Distribution.png?raw=true)
 
-Pierwszy eksperyment z przewidywaniem ósmego akordu:
+Pierwszy eksperyment z przewidywaniem ósmego akordu:48,
 
 ```
 Model: "sequential_7"
@@ -291,24 +291,26 @@ print(decode(X_train[0][0]))
 Pierwsze wyniki predictowania:
 
 ```
-A-maj7/C  | A#m7/C#  | A-maj7/C  | Fm7/C
-Fm/C  | Fm/C  | C7  | Fm/CaddB-
-Gm/D  | B-7/D  | Fm/C  | Gm7/D
-E-  | A-7/C  | A-7/C  | A-/CaddA
-Gm7/D  | C7  | F/C  | F/CaddB-
-E-  | Gm/D  | Cm  | Cm7
-C7  | F-+/CaddB-  | F/C  | B-/C
-B-/D  | E-+  | C7  | Chord Symbol Cannot Be Identified
-F7/C  | B-/D  | B-/D  | B-/C
-E-m  | A#m7/C#  | E-m  | Chord Symbol Cannot Be Identified
-Gm7/D  | C7  | F/C  | B-/C
-D/o7/C  | E-+addF  | Cm7  | B-/C
-F9/CaddB  | B-7/D  | Cm7addD-,A-,F  | D-maj7/C
-A7/C#  | D7/C  | D7/C  | Chord Symbol Cannot Be Identified
-Fm7/C  | B-7/D  | E-maj7/D  | D/o7/C
-Am7/C  | E7/D  | E7/D  | CaddD
-B-7/D  | E-maj7/D  | B-/D  | Cm7
-B-/D  | A7/C#  | B-/D  | E-addF
-Gm7/D  | Gm7/D  | Cm7  | B-/C
-A7/C#  | Dm  | G7/D  | Chord Symbol Cannot Be Identified
+A-maj7/C  | A#m7/C#  	| A-maj7/C  | Fm7/C
+Fm/C      | Fm/C  		| C7  		| Fm/CaddB-
+Gm/D      | B-7/D  		| Fm/C  	| Gm7/D
+E-        | A-7/C  		| A-7/C  	| A-/CaddA
+Gm7/D     | C7  		| F/C 	 	| F/CaddB-
+E-        | Gm/D  		| Cm  		| Cm7
+C7        | F-+/CaddB-  | F/C  		| B-/C
+B-/D      | E-+  		| C7  		| Chord Symbol Cannot Be Identified
+F7/C      | B-/D  		| B-/D 	 	| B-/C
+E-m       | A#m7/C# 	| E-m  		| Chord Symbol Cannot Be Identified
+Gm7/D     | C7  		| F/C  		| B-/C
+D/o7/C    | E-+addF  	| Cm7  		| B-/C
+F9/CaddB  | B-7/D  		| Cm7addD- 	| D-maj7/C
+A7/C#     | D7/C  		| D7/C  	| Chord Symbol Cannot Be Identified
+Fm7/C     | B-7/D  		| E-maj7/D  | D/o7/C
+Am7/C     | E7/D  		| E7/D  	| CaddD
+B-7/D     | E-maj7/D  	| B-/D  	| Cm7
+B-/D      | A7/C#  		| B-/D  	| E-addF
+Gm7/D     | Gm7/D  		| Cm7  		| B-/C
+A7/C#     | Dm  		| G7/D  	| Chord Symbol Cannot Be Identified
 ```
+
+"C:\Users\Mateusz\Miniconda3\Lib\site-packages\pychord\constants\qualities.py"

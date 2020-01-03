@@ -36,21 +36,31 @@ def chords_to_string(chords):
     return string
 
 
-def encode_chords(chords):
-    chords = [[note % 12 for note in chord] for chord in chords]
+def multihot(chords, size='full'):
+    if size == 'full':
+        size = 33
+    else:
+        chords = [[note % size for note in chord] for chord in chords]
     encoded_chords = []
     for chord in chords:
-        encoded_chord = [0] * 12
+        encoded_chord = [0] * size
         for i in chord:
+            # in case of bass note I'll transpose it by octave up B = -1 --> B = 11
+            if i < 0:
+                i += 12
             encoded_chord[i] = 1
         encoded_chords.append(encoded_chord)
     return encoded_chords
 
 
-def get_components(chords):
+def get_components(chords, ignore_bass=True):
     notes_numbers = []
     for c in chords:
-        notes_numbers.append(pychord.Chord(c).components(visible=False))
+        chord = pychord.Chord(c)
+        if ignore_bass:
+            chord._on = None
+        comp = chord.components(visible=False)
+        notes_numbers.append(comp)
     return notes_numbers
 
 
@@ -73,8 +83,6 @@ def extract_meta_data(songs_urls):
         if len(Tune.parse_ireal_url(song_url)) > 0:
             my_tune = Tune.parse_ireal_url(song_url)[0]
             chords = extract_chords_from_tune(my_tune)
-            notes_numbers = get_components(chords)
-            encoded_chords = encode_chords(notes_numbers)
             # We are assuming that each note is interval from C
             song_meta = {
                 "title": my_tune.title,
@@ -86,7 +94,9 @@ def extract_meta_data(songs_urls):
                 "bpm": my_tune.bpm,
                 "repeats": my_tune.repeats,
                 "time_signature": my_tune.time_signature,
-                "encoded_chords": encoded_chords,
+                'chords': chords
             }
             songs_meta.append(song_meta)
-    return pd.DataFrame(songs_meta)
+    df = pd.DataFrame(sorted(songs_meta, key=lambda l: l['title']))
+    df.drop_duplicates(subset="title", inplace=True)
+    return df
