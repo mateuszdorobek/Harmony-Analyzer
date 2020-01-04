@@ -64,3 +64,5 @@ QUALITY_DICT = OrderedDict((
     ('13sus', (0, 5, 7, 10, 14, 17, 21)), 
     ('7b13sus', (0, 5, 7, 10, 14, 17, 20))
 ))
+
+KEYS = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B']
