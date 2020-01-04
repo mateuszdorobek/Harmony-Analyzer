@@ -4,7 +4,6 @@ import re
 import json
 from pyRealParser import Tune
 import pandas as pd
-from collections import Counter
 import pychord
 
 
@@ -24,7 +23,7 @@ def string_to_chords(string):
         {
             "Root": chord.split(",")[0][2:-1],
             "Ext": chord.split(",")[1][2:-1],
-            "Bass": chord.split(",")[2][2:-2],
+            # "Bass": chord.split(",")[2][2:-2],
         }
         for chord in string.split(";")
     ]
@@ -64,6 +63,17 @@ def get_components(chords, ignore_bass=True):
     return notes_numbers
 
 
+def discard_enharmonics(note):
+    note = note.replace("C#", "Db")
+    note = note.replace("D#", "Eb")
+    note = note.replace("E#", "F")
+    note = note.replace("F#", "Gb")
+    note = note.replace("G#", "Ab")
+    note = note.replace("A#", "Bb")
+    note = note.replace("B#", "C")
+    return note
+
+
 def extract_chords_from_tune(my_tune):
     chords = []
     for measure in my_tune.measures_as_strings:
@@ -71,9 +81,9 @@ def extract_chords_from_tune(my_tune):
             r"([A-G][#b]?)(11|7b13sus|13sus|9sus|7susadd3|7b9sus|13#9|13b9|13#11|13|7alt|7b9b13|7b9#9|7b9#5|7b9b5|7b9#11|7#9#11|7#9b5|7#9#5|7b13|9#5|9b5|9#11|7#5|7b5|7#11|7#9|7b9|9|-#5|-b6|h9|-7b5|-11|-9|-\^9|-\^7|-69|-6|\^7#5|\^9#11|\^7#11|69|6|\^13|\^9|o7|h7|7sus|7|-7|\^7|-|\^|sus|h|o|\+|add9|2|5?)?(/[A-G][#b]?)?",
             measure,
         )
-        for (root, extension, bass) in elements:
-            #         chords.append({'Root': root, 'Ext': extension, 'Bass': bass[1:]})
-            chords.append(root + extension + bass)
+        for (root, extension, _) in elements:
+            root = discard_enharmonics(root)
+            chords.append(root + extension)
     return chords
 
 
