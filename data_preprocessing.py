@@ -25,12 +25,12 @@ def chords_string_rep(df, f_name):
     df['chords'].to_csv("data/" + f_name, header="chords", index=False)
 
 
-def components(out_file_name, in_file_name, ignore_bass):
+def components(out_file_name, in_file_name):
     df = pd.read_csv("data/" + in_file_name)
     data = [ast.literal_eval(chords_string) for chords_string in df["chords"]]
     components = []
     for song in data:
-        components.append(str(utils.get_components(song, ignore_bass=ignore_bass)))
+        components.append(str(utils.get_components(song)))
     df = pd.DataFrame(components, columns=["components"])
     df.to_csv("data/" + out_file_name, index=False)
 
@@ -50,9 +50,6 @@ if __name__ == "__main__":
     df = pd.read_csv("data/songs_and_chords.csv")
     chords_string_rep(df, f_name="chords_string_rep_no_bass.csv")
     augmentation(out_file_name="chords_string_rep_no_bass_aug_12.csv", in_file_name="chords_string_rep_no_bass.csv")
-    # components(out_file_name = "components_no_bass.csv", in_file_name = "chords_string_rep_aug_12.csv", ignore_bass=True)
-    # components(out_file_name = "components_with_bass.csv", in_file_name = "chords_string_rep_aug_12.csv", ignore_bass=False)
+    # components(out_file_name = "components_no_bass.csv", in_file_name = "chords_string_rep_aug_12.csv")
     # multihots(out_file_name = "multihot_no_bass_full.csv", in_file_name = "components_no_bass.csv", size='full')
-    # multihots(out_file_name = "multihot_with_bass_full.csv", in_file_name = "components_with_bass.csv", size='full')
     # multihots(out_file_name = "multihot_no_bass_12.csv", in_file_name = "components_no_bass.csv", size=12)
-    # multihots(out_file_name = "multihot_with_bass_12.csv", in_file_name = "components_with_bass.csv", size=12)

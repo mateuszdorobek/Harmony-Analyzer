@@ -1,40 +1,61 @@
-# **Testowanie**:
+# Dane Treningowe:
 
 ```
-root_change test generation.
+songs_and_chords
+	A Foggy Day,Gershwin George,Medium Swing,F,,0,0,,"(4, 4)","['F^7', 'Gbo7', 'G-7', 'C7', 'F^7', 'Dh7', 'G7', 'C7', 'F^7', 'C-7', ... ]
+chords_string_rep_no_bass
+	['C-7', 'F7', 'Bb^7', 'Db7', ... ]
+chords_string_rep_no_bass_aug_12
+	to samo ale zaugmentowane do 12 tonacji
+components_no_bass
+	[[3, 7, 10], [3, 7, 10], [4, 7, 10], ... ]
+multihot_no_bass_12
+	[[0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0], [0, 0, ...
+multihot_no_bass_full (33)
+	[0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0
+```
+
+# **Testowanie**:
+
+Opis plików testowych
+
+```
+root_change test generation. 
+	C7 D7 F7 G7
 chord_type_change test generation.
+	C-7 C^7 D-7 D^7
 V-I_progression test generation.
+	C7 F^7 D7 G^7
 II-V_progression test generation.
+	C-7 F7 D-7 G7
 V/V-V_progression test generation.
+	C7 F7 D7 G7
 less_common_progression test generation.
+	others with all keys randomly choosen 10%
 ```
 
 ```
 Accuracy for Word2Vec:
-Evaluating...
-2020-01-04 21:33:22,919 : INFO : Evaluating word analogies for top 300000 words in the model on data/validation/test_chords.txt
-2020-01-04 21:33:29,577 : INFO : root_change: 1.8% (1594/88572)
-2020-01-04 21:34:06,986 : INFO : chord_type_change: 5.6% (27133/483120)
-2020-01-04 21:34:07,002 : INFO : V-I_progression: 3.0% (4/132)
-2020-01-04 21:34:07,014 : INFO : II-V_progression: 80.3% (106/132)
-2020-01-04 21:34:07,025 : INFO : V/V-V_progression: 13.6% (18/132)
-2020-01-04 21:34:43,909 : INFO : less_common_progression: 2.0% (9686/480288)
-2020-01-04 21:34:43,958 : INFO : Quadruplets with out-of-vocabulary words: 3.2%
-2020-01-04 21:34:43,959 : INFO : NB: analogies containing OOV words were skipped from evaluation! To change this behavior, use "dummy4unknown=True"
-2020-01-04 21:34:43,960 : INFO : Total accuracy: 3.7% (38541/1052376)
+
+root_change: 1.8% (1594/88572)
+chord_type_change: 5.6% (27133/483120)
+V-I_progression: 3.0% (4/132)
+II-V_progression: 80.3% (106/132)
+V/V-V_progression: 13.6% (18/132)
+less_common_progression: 2.0% (9686/480288)
+
+Total accuracy: 3.7% (38541/1052376)
 ```
 
 ```
 Accuracy for FastText:
-Evaluating...
-2020-01-04 21:34:44,091 : INFO : Evaluating word analogies for top 300000 words in the model on data/validation/test_chords.txt
-2020-01-04 21:34:51,077 : INFO : root_change: 3.0% (2700/88572)
-2020-01-04 21:35:27,911 : INFO : chord_type_change: 21.8% (105189/483120)
-2020-01-04 21:35:27,929 : INFO : V-I_progression: 23.5% (31/132)
-2020-01-04 21:35:27,946 : INFO : II-V_progression: 79.5% (105/132)
-2020-01-04 21:35:27,957 : INFO : V/V-V_progression: 0.0% (0/132)
-2020-01-04 21:36:04,817 : INFO : less_common_progression: 3.3% (15820/480288)
-2020-01-04 21:36:04,868 : INFO : Quadruplets with out-of-vocabulary words: 3.2%
-2020-01-04 21:36:04,869 : INFO : NB: analogies containing OOV words were skipped from evaluation! To change this behavior, use "dummy4unknown=True"
-2020-01-04 21:36:04,870 : INFO : Total accuracy: 11.8% (123845/1052376)
+
+root_change: 3.0% (2700/88572)
+chord_type_change: 21.8% (105189/483120)
+V-I_progression: 23.5% (31/132)
+II-V_progression: 79.5% (105/132)
+V/V-V_progression: 0.0% (0/132)
+less_common_progression: 3.3% (15820/480288)
+
+Total accuracy: 11.8% (123845/1052376)
 ```

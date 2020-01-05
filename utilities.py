@@ -5,6 +5,7 @@ import json
 from pyRealParser import Tune
 import pandas as pd
 import pychord
+from utilities import ENHARMONICS
 
 
 def get_song_urls(web_links):
@@ -52,27 +53,20 @@ def multihot(chords, size='full'):
     return encoded_chords
 
 
-def get_components(chords, ignore_bass=True):
+def get_components(chords):
     notes_numbers = []
     for c in chords:
         chord = pychord.Chord(c)
-        if ignore_bass:
-            chord._on = None
+        chord._on = None #ignore bass note
         comp = chord.components(visible=False)
         notes_numbers.append(comp)
     return notes_numbers
 
 
 def discard_enharmonics(note):
-    note = note.replace("C#", "Db")
-    note = note.replace("D#", "Eb")
-    note = note.replace("E#", "F")
-    note = note.replace("F#", "Gb")
-    note = note.replace("G#", "Ab")
-    note = note.replace("A#", "Bb")
-    note = note.replace("B#", "C")
+    if note in ENHARMONICS.keys():
+        return ENHARMONICS[note]
     return note
-
 
 def extract_chords_from_tune(my_tune):
     chords = []
@@ -110,3 +104,7 @@ def extract_meta_data(songs_urls):
     df = pd.DataFrame(sorted(songs_meta, key=lambda l: l['title']))
     df.drop_duplicates(subset="title", inplace=True)
     return df
+
+def build_vocab():
+    df = pd.read_csv("data/chords_string_rep_no_bass_aug_12.csv")
+    return [ast.literal_eval(chords_string) for chords_string in df["chords"]]
