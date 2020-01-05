@@ -37,7 +37,7 @@ def plot_reduction(x, y, labels, selected_indices, title, layout):
     plt.scatter(x, y, alpha=0.7, marker=".")
     plt.xticks([])
     plt.yticks([])
-    plt.title(title, fontweight="bold")
+    plt.title(title, fontweight="bold", size=20)
     texts = []
     for i in selected_indices:
         texts.append(plt.annotate(labels[i], (x[i], y[i]), size=size, weight=weight))
@@ -46,7 +46,9 @@ def plot_reduction(x, y, labels, selected_indices, title, layout):
     adjust_text(texts, x[selected_indices], y[selected_indices], arrowprops=dict(arrowstyle="->", color='r', lw=0.5))
     adjust_text([plt.text(max(x), min(y), "Mateusz Dorobek 2020", alpha=0.5, color='gray', fontname="Helvetica",
                           size='x-large')])
+    plt.savefig("images/embeddings/"+title)
     plt.show()
+
 
 
 def plot_test_cases(model):
@@ -59,11 +61,10 @@ def plot_test_cases(model):
         for chord in chords:
             indices.append(np.where(labels == chord)[0][0])
         if "Circle of Fifths" in title:
-            plot_reduction(x, y, labels, indices, title + " | " + str(model).split("(")[0], layout='normal')
+            plot_reduction(x, y, labels, indices, title + " - " + str(model).split("(")[0], layout='normal')
         else:
-            plot_reduction(x, y, labels, indices, title + " | " + str(model).split("(")[0], layout='big')
-        break
-
+            plot_reduction(x, y, labels, indices, title + " - " + str(model).split("(")[0], layout='big')
+        # break
 
 def generate_validation_file(file_name):
     test_list = []
@@ -156,4 +157,4 @@ if __name__ == "__main__":
         # print_accuracy(m)
         plot_test_cases(m)
         print(m.wv.most_similar('C7')[:5])
-        break
+        # break
