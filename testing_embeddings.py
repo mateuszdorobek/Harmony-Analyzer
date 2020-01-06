@@ -1,19 +1,18 @@
 import ast
+import logging
+import random
 
-import matplotlib.axes
-from matplotlib.offsetbox import AnchoredText
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from adjustText import adjust_text
 from gensim.models import Word2Vec
 from gensim.models.fasttext import FastText
+from sklearn.manifold import TSNE
+
 import utilities as my_utils
 from multihotembedding import MultihotEmbedding
 from qualities import QUALITY_DICT, KEYS
-from sklearn.manifold import TSNE
-import pandas as pd
-import random
-import logging
-import matplotlib.pyplot as plt
-import numpy as np
-from adjustText import adjust_text
 
 
 # https://radimrehurek.com/gensim/auto_examples/tutorials/run_word2vec.html#sphx-glr-download-auto-examples-tutorials-run-word2vec-py
@@ -157,7 +156,7 @@ if __name__ == "__main__":
     # mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
     logging.basicConfig(format='%(message)s', level=logging.INFO)
     for m in [mh, w2v, ft]:
-        print_accuracy(m, "data/validation/test_chords_double_pairs_short.txt")
-        # plot_test_cases(m)
+        print_accuracy(m, "data/validation/test_chords_double_pairs.txt")
+        plot_test_cases(m)
         print(m.wv.most_similar('C7')[:5])
         break

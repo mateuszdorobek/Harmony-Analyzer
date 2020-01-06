@@ -218,7 +218,7 @@ class MultihotEmbedding:
                 logger.info("%s: %.1f%% (%i/%i)", section['section'], 100.0 * score, correct, correct + incorrect)
                 return score
 
-        def evaluate_word_analogies(self, analogies, restrict_vocab=300000, case_insensitive=False, dummy4unknown=True):
+        def evaluate_word_analogies(self, analogies, restrict_vocab=300000, case_insensitive=False, dummy4unknown=False):
             """Compute performance of the model on an analogy test set.
 
             This is modern variant of :meth:`~gensim.models.keyedvectors.WordEmbeddingsKeyedVectors.accuracy`, see

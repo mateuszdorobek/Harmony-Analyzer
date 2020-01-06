@@ -31,7 +31,7 @@ II-V_progression test generation.
 V/V-V_progression test generation.
 	C7 F7 D7 G7
 less_common_progression test generation.
-	others with all keys randomly choosen 10%
+	others with all keys randomly chosen 10%
 ```
 
 ```
@@ -59,3 +59,4 @@ less_common_progression: 3.3% (15820/480288)
 
 Total accuracy: 11.8% (123845/1052376)
 ```
+
