@@ -5,7 +5,10 @@ import json
 from pyRealParser import Tune
 import pandas as pd
 import pychord
-from utilities import ENHARMONICS
+from qualities import ENHARMONICS
+import ast
+import six
+import logging
 
 
 def get_song_urls(web_links):
@@ -105,6 +108,10 @@ def extract_meta_data(songs_urls):
     df.drop_duplicates(subset="title", inplace=True)
     return df
 
-def build_vocab():
+def build_sentences():
     df = pd.read_csv("data/chords_string_rep_no_bass_aug_12.csv")
     return [ast.literal_eval(chords_string) for chords_string in df["chords"]]
+
+# Following function is from Genism package 
+# Authored by Shiva Manne
+# modified for puropses of this project

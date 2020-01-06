@@ -4,7 +4,8 @@ import matplotlib.axes
 from matplotlib.offsetbox import AnchoredText
 from gensim.models import Word2Vec
 from gensim.models.fasttext import FastText
-
+import utilities as my_utils
+from multihotembedding import MultihotEmbedding
 from qualities import QUALITY_DICT, KEYS
 from sklearn.manifold import TSNE
 import pandas as pd
@@ -46,9 +47,8 @@ def plot_reduction(x, y, labels, selected_indices, title, layout):
     adjust_text(texts, x[selected_indices], y[selected_indices], arrowprops=dict(arrowstyle="->", color='r', lw=0.5))
     adjust_text([plt.text(max(x), min(y), "Mateusz Dorobek 2020", alpha=0.5, color='gray', fontname="Helvetica",
                           size='x-large')])
-    plt.savefig("images/embeddings/"+title)
+    plt.savefig("images/embeddings/" + title)
     plt.show()
-
 
 
 def plot_test_cases(model):
@@ -65,6 +65,7 @@ def plot_test_cases(model):
         else:
             plot_reduction(x, y, labels, indices, title + " - " + str(model).split("(")[0], layout='big')
         # break
+
 
 def generate_validation_file(file_name):
     test_list = []
@@ -143,18 +144,20 @@ def generate_validation_file(file_name):
 
 
 def print_accuracy(model):
-    word_analogies_file = "data/validation/test_chords_double_pairs.txt"
+    word_analogies_file = "data/validation/test_chords_double_pairs_short.txt"
     print(str(model).split("(")[0], "accuracy:")
     model.wv.evaluate_word_analogies(word_analogies_file)
 
 
 if __name__ == "__main__":
-    # generate_validation_file(file_name="test_chords_double_pairs.txt")
+    # generate_validation_file(file_name="test_chords_double.txt")
+    sentences = my_utils.build_sentences()
     w2v = Word2Vec.load("embeddings/word2vec.model")
     fastText = FastText.load("./embeddings/fastText.model")
+    mh = MultihotEmbedding(sentences=sentences, size=33)
     logging.basicConfig(format='%(message)s', level=logging.INFO)
-    for m in [w2v, fastText]:
-        # print_accuracy(m)
+    for m in [mh]:
+        print_accuracy(m)
         plot_test_cases(m)
         print(m.wv.most_similar('C7')[:5])
         # break

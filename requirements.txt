@@ -1,3 +1,4 @@
+six
 adjustText
 gensim
 pyRealParser==0.1.0
