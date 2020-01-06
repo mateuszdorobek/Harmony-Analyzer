@@ -143,21 +143,21 @@ def generate_validation_file(file_name):
     pd.DataFrame(test_list).to_csv("data/validation/" + file_name, header=None, index=False)
 
 
-def print_accuracy(model):
-    word_analogies_file = "data/validation/test_chords_double_pairs_short.txt"
+def print_accuracy(model, word_analogies_file):
     print(str(model).split("(")[0], "accuracy:")
     model.wv.evaluate_word_analogies(word_analogies_file)
 
 
 if __name__ == "__main__":
-    # generate_validation_file(file_name="test_chords_double.txt")
+    # generate_validation_file(file_name="test_chords_double_pairs.txt")
     sentences = my_utils.build_sentences()
     w2v = Word2Vec.load("embeddings/word2vec.model")
-    fastText = FastText.load("./embeddings/fastText.model")
+    ft = FastText.load("./embeddings/fastText.model")
     mh = MultihotEmbedding(sentences=sentences, size=33)
+    # mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
     logging.basicConfig(format='%(message)s', level=logging.INFO)
-    for m in [mh]:
-        print_accuracy(m)
-        plot_test_cases(m)
+    for m in [mh, w2v, ft]:
+        print_accuracy(m, "data/validation/test_chords_double_pairs_short.txt")
+        # plot_test_cases(m)
         print(m.wv.most_similar('C7')[:5])
-        # break
+        break

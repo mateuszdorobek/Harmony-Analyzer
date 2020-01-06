@@ -98,12 +98,6 @@ class MultihotEmbedding:
                     result = self.vectors_norm[list(self.vocab.keys()).index(word)]
                 else:
                     result = self.vectors[list(self.vocab.keys()).index(word)]
-                # if use_norm:
-                #     idx = list(self.vocab.keys()).index(word)
-                #     result = self.vectors_norm[idx]
-                # else:
-                #     idx = list(self.vocab.keys()).index(word)
-                #     result = self.vectors[idx]
 
                 result.setflags(write=False)
                 return result
@@ -193,14 +187,6 @@ class MultihotEmbedding:
             result = [(self.index2word[sim], float(dists[sim])) for sim in best if sim not in all_words]
             return result[:topn]
 
-        #         def most_similar(self, a):
-        #             similarities = []
-        #             for key in self.vocab.keys():
-        #                 sim = mh.similarity(a, key)
-        #                 similarities.append((key, sim))
-        #             similarities.sort(key=lambda tup: tup[1], reverse = True)
-        #             return similarities
-
         def similarity(self, a, b):
             if a not in self.vocab.keys() or b not in self.vocab.keys():
                 return None
@@ -209,10 +195,6 @@ class MultihotEmbedding:
 
         def __getitem__(self, item):
             return [self.vocab.get(key) for key in item]
-
-        # Following function is from Genism package
-        # Authored by Shiva Manne
-        # modified for puropses of this project
 
         @staticmethod
         def _log_evaluate_word_analogies(section):
@@ -316,7 +298,6 @@ class MultihotEmbedding:
                         ignore = {a, b, c}  # input words to be ignored
                         predicted = None
                         # find the most likely prediction using 3CosAdd (vector offset) method
-                        # TODO: implement 3CosMul and set-based methods for solving analogies
                         sims = self.most_similar(positive=[b, c], negative=[a], topn=5, restrict_vocab=restrict_vocab)
                         self.vocab = original_vocab
                         for element in sims:
@@ -352,7 +333,7 @@ class MultihotEmbedding:
             # Return the overall score and the full lists of correct and incorrect analogies
             return analogies_score, sections
 
-    def __init__(self, sentences, size):
+    def __init__(self, sentences=[], size=0):
         self.wv = self.Wv(sentences)
         self.vector_size = size
 
@@ -364,6 +345,7 @@ class MultihotEmbedding:
             self.__class__.__name__, len(self.wv.vocab), self.vector_size
         )
 
+    # TODO not working - check testing_embeddings
     @staticmethod
     def load(filename):
         f = open(filename, 'rb')
