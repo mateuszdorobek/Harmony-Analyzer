@@ -104,7 +104,7 @@ class MultihotEmbedding:
             else:
                 raise KeyError("word '%s' not in vocabulary" % word)
 
-        def most_similar(self, positive=None, negative=None, topn=10, restrict_vocab=None, indexer=None):
+        def most_similar(self, positive=None, negative=None, topn=5, restrict_vocab=None, indexer=None):
             """Find the top-N most similar words.
             Positive words contribute positively towards the similarity, negative words negatively.
 

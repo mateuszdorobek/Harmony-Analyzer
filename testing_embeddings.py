@@ -68,10 +68,11 @@ def plot_test_cases(model):
 
 def generate_validation_file(file_name):
     test_list = []
+    test_dict = {}
     chord_types = list(QUALITY_DICT.keys())
 
     print('root_change test generation.')
-    test_list.append(': root_change')
+
     for chord in chord_types:
         for note in range(len(KEYS)):
             for interval in range(1, len(KEYS)):
@@ -79,9 +80,10 @@ def generate_validation_file(file_name):
                     row = KEYS[note] + chord + " " + KEYS[(note + interval) % 12] + chord + " " + KEYS[
                         (diff + note) % 12] + chord + " " + KEYS[(diff + note + interval) % 12] + chord
                     test_list.append(row)
+    test_dict[": root_change"] = test_list
+    test_list = []
 
     print('chord_type_change test generation.')
-    test_list.append(': chord_type_change')
     for chord_1 in chord_types:
         for chord_2 in chord_types:
             if chord_1 == chord_2:
@@ -91,9 +93,10 @@ def generate_validation_file(file_name):
                     row = KEYS[note] + chord_1 + " " + KEYS[note] + chord_2 + " " + KEYS[
                         (diff + note) % 12] + chord_1 + " " + KEYS[(diff + note) % 12] + chord_2
                     test_list.append(row)
+    test_dict[": chord_type_change"] = test_list
+    test_list = []
 
     print('V-I_progression test generation.')
-    test_list.append(': V-I_progression')
     chord_1 = '7'
     chord_2 = '^7'
     interval = 5
@@ -102,9 +105,10 @@ def generate_validation_file(file_name):
             row = KEYS[note] + chord_1 + " " + KEYS[(note + interval) % 12] + chord_2 + " " + KEYS[
                 (diff + note) % 12] + chord_1 + " " + KEYS[(diff + note + interval) % 12] + chord_2
             test_list.append(row)
+    test_dict[": V-I_progression"] = test_list
+    test_list = []
 
     print('II-V_progression test generation.')
-    test_list.append(': II-V_progression')
     chord_1 = '-7'
     chord_2 = '7'
     interval = 5
@@ -113,9 +117,10 @@ def generate_validation_file(file_name):
             row = KEYS[note] + chord_1 + " " + KEYS[(note + interval) % 12] + chord_2 + " " + KEYS[
                 (diff + note) % 12] + chord_1 + " " + KEYS[(diff + note + interval) % 12] + chord_2
             test_list.append(row)
+    test_dict[": II-V_progression"] = test_list
+    test_list = []
 
     print('V/V-V_progression test generation.')
-    test_list.append(': V/V-V_progression')
     chord = '7'
     interval = 5
     for note in range(len(KEYS)):
@@ -123,9 +128,10 @@ def generate_validation_file(file_name):
             row = KEYS[note] + chord + " " + KEYS[(note + interval) % 12] + chord + " " + KEYS[
                 (diff + note) % 12] + chord + " " + KEYS[(diff + note + interval) % 12] + chord
             test_list.append(row)
+    test_dict[": V/V-V_progression"] = test_list
+    test_list = []
 
     print('less_common_progression test generation.')
-    test_list.append(': less_common_progression')
     chord_types = chord_types[:10] + chord_types[13:]
     for chord_1 in chord_types:
         for chord_2 in chord_types:
@@ -134,10 +140,19 @@ def generate_validation_file(file_name):
             for note in range(len(KEYS)):
                 for interval in range(1, len(KEYS)):
                     for diff in range(1, len(KEYS)):
-                        if random.random() < 0.1:
-                            row = KEYS[note] + chord_1 + " " + KEYS[(note + interval) % 12] + chord_2 + " " + KEYS[
-                                (diff + note) % 12] + chord_1 + " " + KEYS[(diff + note + interval) % 12] + chord_2
-                            test_list.append(row)
+                        row = KEYS[note] + chord_1 + " " + KEYS[(note + interval) % 12] + chord_2 + " " + KEYS[
+                            (diff + note) % 12] + chord_1 + " " + KEYS[(diff + note + interval) % 12] + chord_2
+                        test_list.append(row)
+    test_dict[": less_common_progression"] = test_list
+
+    min_test_size = min([len(v) for v in test_dict.values()])
+    for key in test_dict:
+        test_dict[key] = list(np.random.choice(test_dict[key], size=min_test_size, replace=False))
+
+    test_list = []
+    for k, v in zip(test_dict.keys(), test_dict.values()):
+        test_list.append(k)
+        test_list = test_list + v
     print("Saving test file: " + file_name)
     pd.DataFrame(test_list).to_csv("data/validation/" + file_name, header=None, index=False)
 
@@ -155,8 +170,8 @@ if __name__ == "__main__":
     mh = MultihotEmbedding(sentences=sentences, size=33)
     # mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
     logging.basicConfig(format='%(message)s', level=logging.INFO)
-    for m in [mh, w2v, ft]:
+    for m in [w2v, ft, mh]:
         print_accuracy(m, "data/validation/test_chords_double_pairs.txt")
-        plot_test_cases(m)
-        print(m.wv.most_similar('C7')[:5])
-        break
+        # plot_test_cases(m)
+        # print(m.wv.most_similar('C7')[:5])
+        # break
