@@ -1,3 +1,26 @@
+# Generowanie Akordów Jazzowych
+
+**Mateusz Dorobek - Raport Ekslopracja Danych Tekstowych z Uczeniem Głębokim**
+
+## Opis
+
+W tym projekcie chce stworzyć system który stworzy embedding dla akordów jazzowych, następnie tak zembeddowane akordy chce wykorzystać do treningu modelu który będzie w stanie przewidzień kolejny akord z sekwencji.
+
+## Plan Projektu
+
+- Dane
+  - scrappowanie
+  - czyszczenie
+  - augmentacja
+  - odkodowanie symboli akordów do formy numerycznej
+- Embedding
+  - wykorzystanie znanych modeli językowych i wytrenowanie ich na akordach
+  - porównanie (Word2Vec, FastText, Multihot) i ewaluacja z wykorzystaniem t-SNE
+- Generowanie
+  - Wykorzystanie LSTM GRU lub innych sieci do generowania sekwensji akrodów
+
+## Scrapowanie danych
+
 Źródła danych:
 
 - [Suggestions-for-additions-or-changes-to-the-Main-Jazz-Playlist](https://www.irealb.com/forums/showthread.php?22620-Suggestions-for-additions-or-changes-to-the-Main-Jazz-Playlist)
@@ -15,7 +38,7 @@
 - [Gypsy-Jazz](https://www.irealb.com/forums/showthread.php?215-Gypsy-Jazz)
 
 
-Used Libraries:
+Biblioteki:
 
 - pyRealParser
 - BeautifulSoup
@@ -23,29 +46,23 @@ Used Libraries:
 - pyChord
 - music21
 
-song url:
+Zesrapowałem dane ze stron internetowych używając **BeautifuSoup**
+
+**URL** utworów:
 
 ```
 'irealb://%32%36%2D%32=%43%6F%6C%74%72%61%6E%65%20%4A%6F%68%6E==%4D%65%64%69%75%6D%20%55%70%20%53%77%69%6E%67=%46==%31%72%33%34%4C%62%4B%63%75%37%5A%4C%37%62%44%34%46%5E%37%20%5A%4C%37%46%20%37%2D%43%5A%4C%37%43%20%37%41%5E%5A%4C%37%45%20%37%5E%62%44%5A%4C%37%62%41%42%62%5E%37%20%34%54%5B%41%2A%20%37%5E%41%5A%41%37%4C%5A%44%5E%62%44%5A%4C%37%62%41%20%37%5E%46%5B%41%5D%2A%20%37%43%20%37%2D%47%5A%4C%37%47%20%37%2D%37%20%45%37%4C%20%37%5E%62%47%43%5B%42%2A%5D%2D%37%20%46%37%46%5A%4C%37%43%20%37%5E%41%5A%4C%37%45%20%5E%37%62%44%5A%4C%37%62%41%20%37%5E%62%42%5A%4C%5E%37%58%79%51%43%5A%4C%37%43%37%5E%62%44%7C%4C%5A%45%2D%37%41%7C%51%79%58%37%2D%62%45%7C%51%79%58%37%62%5E%42%5A%4C%37%46%20%37%5E%44%5A%4C%37%41%20%62%37%58%79%51%37%46%20%37%2D%42%5A%4C%37%46%2D%37%20%43%37%4C%37%43%20%37%5E%41%5A%4C%37%45%20%37%5E%44%62%5A%4C%37%62%41%20%37%5E%46%5B%41%2A%5D%20%5A%43%2D%37%20%47%7C%51%79%58%62%5E%37%20%41%62%37%4C%5A%44%62%5E%37%20%45%37%4C%5A%41%5E%37%20%43%37%4C%5A%46%5E%37%20%20%20%5A==%30=%30==='
 ```
 
-parsed by [pyRealParser](https://pypi.org/project/pyRealParser/#description):
+Zparsowany przez  **pyRealParser**:
 
 ```
-Parsed 26-2
-<pyRealParser.pyRealParser.Tune object at 0x0000016D0181E4E0>
 Title: 26-2
 Composer: Coltrane John
 Style: Medium Up Swing
 Key: F
 Transpose: None
-Comp style: 0
-BPM: 0
-Repeats: None
 Time signature: 4/4
-
-Chord string:
-*A[T44F^7 Ab7|Db^7 E7|A^7 C7|C-7 F7|Bb^7 Db7|Gb^7 A7|D-7 G7|G-7 C7 ]*A[F^7 Ab7|Db^7 E7|A^7 C7|C-7 F7|Bb^7 Ab7|Db^7 E7|A^7 C7|F^7 ]*B[C-7 F7|E-7 A7|D^7 F7|Bb^7 |Eb-7 |Ab7 |Db^7 |G-7 C7 ]*A[F^7 Ab7|Db^7 E7|A^7 C7|C-7 F7|Bb^7 Ab7|Db^7 E7|A^7 C7|F^7
 
 Flattened measures:
 | F^7Ab7      | Db^7E7      | A^7C7       | C-7F7       |
@@ -58,19 +75,19 @@ Flattened measures:
 | Bb^7Ab7     | Db^7E7      | A^7C7       | F^7         |
 ```
 
-atributes:
+Atributy:
 
-- title: The title
-- composer: The composer
-- style: The style (e.g. 'Swing', 'Bossa', 'Blues' etc.)
-- key: The key (e.g. 'A', 'F#' etc)
-- transpose: How many semitones to transpose
-- comp_style: Accompaniment style (usually empty)
-- bpm: Tempo in BPM (usually empty)
-- repeats: How many repeats (usually empty)
-- time_signature: Time signature as a tuple (e.g. (3,4), (4, 4), (5, 8) etc.)
+- **title**: The title
+- **composer**: The composer
+- **style**: The style (e.g. 'Swing', 'Bossa', 'Blues' etc.)
+- **key**: The key (e.g. 'A', 'F#' etc)
+- **transpose**: How many semitones to transpose
+- **comp_style**: Accompaniment style (usually empty)
+- **bpm**: Tempo in BPM (usually empty)
+- **repeats**: How many repeats (usually empty)
+- **time_signature**: Time signature as a tuple (e.g. (3,4), (4, 4), (5, 8) etc.)
 
-Example attributes:
+Przykład:
 
 ```
 title:  26-2
@@ -84,7 +101,7 @@ repeats:  None
 time_signature:  (4, 4)
 ```
 
-pandas dataframe
+pandas dataframe z danymi:
 
 |      |       title       | composer        |      style      | key  | transpose | repeats | time_signature |
 | ---: | :---------------: | --------------- | :-------------: | :--: | :-------: | :-----: | :------------: |
@@ -94,7 +111,7 @@ pandas dataframe
 |    3 | 52nd Street Theme | Monk Thelonious | Up Tempo Swing  |  C   |   None    |  None   |     (4, 4)     |
 |    4 |   9.20 Special    | Warren Earl     |  Medium Swing   |  C   |   None    |  None   |     (4, 4)     |
 
-[IRealPro File Format](https://irealpro.com/ireal-pro-file-format/)
+[IRealPro File Format](https://irealpro.com/ireal-pro-file-format/) - fragemnt dokumentacji dotyczącej budowy akordów
 
 ```
 Chords
@@ -151,7 +168,7 @@ The same song’s full custom url embedded in an HTML link:
 <a href="irealbook://A Walkin Thing=Carter Benny=Medium Swing=D-=n={*AT44D- D-/C |Bh7, Bb7(A7b9) |D-/A G-7 |D-/F sEh,A7,|Y|lD- D-/C |Bh7, Bb7(A7b9) |D-/A G-7 |N1D-/F sEh,A7} Y|N2sD-,G-,lD- ][*BC-7 F7 |Bb^7 |C-7 F7 |Bb^7 n ||C-7 F7 |Bb^7 |B-7 E7 |A7,p,p,p,][*AD- D-/C |Bh7, Bb7(A7b9) |D-/A G-7 |D-/F sEh,A7,||lD- D-/C |Bh7, Bb7(A7b9) |D-/A G-7 |D-/F sEh,A7Z">A Walkin Thing</a>
 ```
 
-Trzymam sobie akordy w liście słowników:
+Akordy w liście słowników:
 
 ```
 [{'Root': 'F', 'Ext': '^7', 'Bass': ''},
@@ -175,15 +192,99 @@ Trzymam sobie akordy w liście słowników:
  {'Root': 'Db', 'Ext': '^7', 'Bass': ''},
 ```
 
-
-
-Aby dodać do data frame'a dzielę sobie akordy na coś takiego i  przetrzymuję jako string - mam metode co z tego z powrotem mi zrobi listę słowników
+Akordy zapisuje w formie czytelnej dla muzyka, to znaczy połączonych Root, Ext i Bass
 
 ```
-'["F", "^7", ""];["Ab", "7", ""];["Db", "^7", ""];["E", "7", ""];["A", "^7", ""];["C", "7", ""];["C", "-7", ""];["F", "7", ""];["Bb", "^7", ""];["Db", "7", ""];["Gb", "^7", ""];["A", "7", ""];["D", "-7", ""];["G", "7", ""];["G", "-7", ""];["C", "7", ""];["F", "^7", ""];["Ab", "7", ""];["Db", "^7", ""];["E", "7", ""];["A", "^7", ""];["C", "7", ""];["C", "-7", ""];["F", "7", ""];["Bb", "^7", ""];["Ab", "7", ""];["Db", "^7", ""];["E", "7", ""];["A", "^7", ""];["C", "7", ""];["F", "^7", ""];["C", "-7", ""];["F", "7", ""];["E", "-7", ""];["A", "7", ""];["D", "^7", ""];["F", "7", ""];["Bb", "^7", ""];["Eb", "-7", ""];["Ab", "7", ""];["Db", "^7", ""];["G", "-7", ""];["C", "7", ""];["F", "^7", ""];["Ab", "7", ""];["Db", "^7", ""];["E", "7", ""];["A", "^7", ""];["C", "7", ""];["C", "-7", ""];["F", "7", ""];["Bb", "^7", ""];["Ab", "7", ""];["Db", "^7", ""];["E", "7", ""];["A", "^7", ""];["C", "7", ""];["F", "^7", ""]'
+F^7 Ab7 Db^7 E7 A^7 C7 C-7 F7 Bb^7 Db7 Gb^7 A7 D-7 G7 G-7 C7 F^7 Ab7 Db^7
 ```
 
-Dobra jednak nie jednak z akordów robie od razu numery nut:
+## Typy akordów
+
+Mamy 62 typy akordów, każdy z nich ma swoje składniki, oczywiści akord może zaczynać się od różnych stopni nie tylko od pierwszego - dźwięk C. Ja umieściłem w poniższym słowniku wszystkie możliwe typy akordów, w przypadku gdyby potrzebna by mi by la struktura akrdu o pół tonu wyższego poprostu zwiększam każdy ze składników o 1.
+
+```python
+from collections import OrderedDict
+
+QUALITY_DICT = OrderedDict((
+    ('5', (0, 7)), 
+    ('2', (0, 2, 7)), 
+    ('+', (0, 4, 8)),
+    ('', (0, 4, 7)), 
+    ('o', (0, 3, 6)),
+    ('h', (0, 3, 6)), 
+    ('sus', (0, 5, 7)), 
+    ('^', (0, 4, 7)), 
+    ('-', (0, 3, 7)),
+    ('add9', (0, 4, 7, 14)), 
+    ('^7', (0, 4, 7, 11)), 
+    ('-7', (0, 3, 7, 10)),
+    ('7', (0, 4, 7, 10)), 
+    ('7sus', (0, 5, 7, 10)), 
+    ('h7', (0, 3, 6, 10)),
+    ('o7', (0, 3, 6, 9)), 
+    ('^7#5', (0, 4, 8, 11)), 
+    ('6', (0, 4, 7, 9)), 
+    ('-6', (0, 3, 7, 9)),
+    ('-7b5', (0, 3, 6, 10)), 
+    ('-b6', (0, 3, 7, 8)), 
+    ('-#5', (0, 3, 7, 8)),
+    ('7b5', (0, 4, 6, 10)), 
+    ('7#5', (0, 4, 8, 10)), 
+    ('-^7', (0, 3, 7, 11)), 
+    ('-^9', (0, 3, 7, 11, 14)),
+    ('^9', (0, 4, 7, 11, 14)), 
+    ('-69', (0, 3, 7, 9, 14)), 
+    ('-9', (0, 3, 7, 10, 14)),
+    ('69', (0, 4, 7, 9, 14)), 
+    ('^7#11', (0, 4, 7, 11, 18)), 
+    ('h9', (0, 3, 6, 10, 14)),
+    ('7b9sus', (0, 5, 7, 10, 13)), 
+    ('7susadd3', (0, 5, 7, 10, 16)),
+    ('9', (0, 4, 7, 10, 14)), 
+    ('7b9', (0, 4, 7, 10, 13)), 
+    ('7#9', (0, 4, 7, 10, 15)),
+    ('9b5', (0, 4, 6, 10, 14)), 
+    ('9#5', (0, 4, 8, 10, 14)), 
+    ('7#9#5', (0, 4, 8, 10, 15)),
+    ('7#9b5', (0, 4, 6, 10, 15)), 
+    ('7b9b5', (0, 4, 6, 10, 13)),
+    ('7b9#5', (0, 4, 8, 10, 13)), 
+    ('7alt', (0, 4, 8, 10, 15)),
+    ('^13', (0, 4, 7, 11, 14, 21)), 
+    ('^9#11', (0, 4, 7, 11, 14, 18)), 
+    ('-11', (0, 3, 7, 10, 14, 17)),
+    ('7#11', (0, 4, 7, 10, 14, 18)), 
+    ('9#11', (0, 4, 7, 10, 14, 18)), 
+    ('7#9#11', (0, 4, 7, 10, 15, 18)), 
+    ('7b9#11', (0, 4, 7, 10, 13, 18)),
+    ('7b9#9', (0, 4, 7, 10, 13, 15)), 
+    ('9sus', (0, 5, 7, 10, 14, 16)), 
+    ('11', (0, 4, 7, 10, 14, 17)), 
+    ('7b9b13', (0, 4, 7, 10, 13, 17, 20)),
+    ('7b13', (0, 4, 7, 10, 14, 17, 21)), 
+    ('13', (0, 4, 7, 10, 14, 17, 21)), 
+    ('13#11', (0, 4, 7, 10, 18, 17, 21)), 
+    ('13b9', (0, 4, 7, 10, 13, 17, 21)),
+    ('13#9', (0, 4, 7, 10, 15, 17, 21)), 
+    ('13sus', (0, 5, 7, 10, 14, 17, 21)), 
+    ('7b13sus', (0, 5, 7, 10, 14, 17, 20))
+))
+```
+
+## Representacja Multihot
+
+Przykładowy akord C-7 zagrany na klawiaturze fortepianu wuglądał będzie tak. Numerując kolejne klawisze z oktawy możemy zakodować kolejne dźwięki tego akordu.
+
+<img src="F:\MiNI IAD\_Sem_2_BCN\PyBCN_Presentation\Cmol_klawiatura.jpg" style="zoom:50%;" />
+
+Jak widać powyżej ten akord ma 4 składniki, czyli nasz wektor COMPONENTS wygląda następująco. Taka forma nie jest najlepsza ponieważ długość tego wektora zależy od ilości nut w akordzie, która jest zmienna. Forma Multihot rozwiązuje ten problem ponieważ ma ona stałą długość, w tym przypadku 12 - tyle ile jest możliwych dźwięków w oktawie. Zapalane są te bity na których grana jest nuta odpowiadającego klawisza fortepianu. Dzieki temu otrzymujemy sparse representation naszego akordu.
+
+```
+COMPONENTS: [0,3,7,10]
+MULTIHOT: [1,0,0,1,0,0,0,1,0,0,1,0]
+```
+
+Poniżej przykład utworu zakodowanego w postaci składników - COMPONENTS.
 
 ```
 Bb7	Eb7	Bb7	Bb7-
@@ -209,7 +310,7 @@ G7	C-7	F7	Bb7	G7	C-7	F7
  [5, 9, 12, 15]]
 ```
 
-Znalazłem ponad 2k piosenek.
+Znalazłem ponad 2000 piosenek.
 
 ```python
 len(Counter(df["title"]).most_common())
@@ -221,19 +322,12 @@ repetitions:  187
 total:  2332
 unique:  2137
 ```
-Po usunięciu duplikatów
-```
-repetitions:  0
-total:  2137
-unique:  2137
-```
-
-### Statystyki:
+## Statystyki:
 
 ```python
 chords_lans = [len(ast.literal_eval(chords_str)) for chords_str in pd.read_csv("songs_and_chords.csv")["encoded_chords"]]
 sum(chords_lans)/len(chords_lans)
->48.50818905007019
+>48.50818
 ```
 
 średnio 48.5 akordu na utwór.
@@ -242,7 +336,13 @@ Chords Progression Lengths Distribution:
 
 ![Chords Progression Lengths Distribution](https://github.com/SaxMan96/Harmony-Analyzer/blob/master/images/Chords%20Progression%20Lengths%20Distribution.png?raw=true)
 
-Pierwszy eksperyment z przewidywaniem ósmego akordu:48,
+## Podsumowanie:
+
+Mamy ~2000 utworów o średniej długości  ~50 akordów, oraz możemy ten zbiór zaugmentować 12 razy transponując każdy utwór do jednej z pozostałych 11-stu tonacji. Dane to po złączeniu sekwencję o łączej długości `2000*50*12=1200000` milion dwieście tysięcy akordów. Łącznie mam `62*12=744` możliwych akordów. To takjakby mieć korpus o długości miliona słów i 700 możliwych słów. Wydaje mi się być to sensownym stosunkiem.
+
+## Eksperymenty
+
+Pierwszy eksperyment z przewidywaniem ósmego akordu. To znaczy mamy 7 akordów na wejści staramy się przewidzieć ósmy akord z tej sekwencji.
 
 ```
 Model: "sequential_7"
@@ -276,7 +376,7 @@ print(pred)
 [1 0 0 1 0 1 0 0 1 0 0 0]
 ```
 
-Decodowanie:
+Decodowanie i mamy składniki naszego akordu - teraz trzeba go poszukać w naszej zdefiniowanej liście akordów.
 
 ```python
 print(X_train[0][0])
@@ -313,4 +413,7 @@ Gm7/D     | Gm7/D  		| Cm7  		| B-/C
 A7/C#     | Dm  		| G7/D  	| Chord Symbol Cannot Be Identified
 ```
 
-"C:\Users\Mateusz\Miniconda3\Lib\site-packages\pychord\constants\qualities.py"
+Do dekodowania typów akordów używam biblioteki pychord, ale użyłem swojej własnej - poszerzonej listy z typami akordów, którą umieściłem w pliku:
+
+`C:\Users\Mateusz\Miniconda3\Lib\site-packages\pychord\constants\qualities.py`
+

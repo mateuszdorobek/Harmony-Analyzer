@@ -53,12 +53,12 @@ Below I've presented a result of model prediction. In the last column I'm showin
 
 ```
 | 	input to network   	|	true chord 	|	prediction (most similar chords)	
-    Dbo7	G^7		E7		( B-7 )		['Ebh', 'Ebh9', 'A7', 'Ebh7', 'A6']
-    B6		Gb6		Gb6		( B )		['Db-11', 'Db2', 'A6', 'Db-#5', 'Dbh9']
-    D7		Db7		Gb-		( Eb7sus )	['Db-b6', 'Ebh', 'A6', 'Ebh7', 'A^7']
-    Bb7		Eb		Eb7		( Db7 )		['A6', 'E+', 'Co', 'Gb+', 'A']
-    Ab^7	Db^7	Ab^7	( B7 )		['Ebh', 'A6', 'Db-', 'Ebh7', 'Co7']
-    Gb^7	Bbh7	Eb7b9	( F7 )		['Ebh', 'Db-b6', 'Ebh7', 'Gb-b6', 'Db-']
+    Dbo7	G^7		E7			( B-7 )				['Ebh', 'Ebh9', 'A7', 'Ebh7', 'A6']
+    B6		Gb6		Gb6		  ( B )					['Db-11', 'Db2', 'A6', 'Db-#5', 'Dbh9']
+    D7		Db7		Gb-			( Eb7sus )		['Db-b6', 'Ebh', 'A6', 'Ebh7', 'A^7']
+    Bb7		Eb		Eb7			( Db7 )				['A6', 'E+', 'Co', 'Gb+', 'A']
+    Ab^7	Db^7	Ab^7		( B7 )				['Ebh', 'A6', 'Db-', 'Ebh7', 'Co7']
+    Gb^7	Bbh7	Eb7b9		( F7 )				['Ebh', 'Db-b6', 'Ebh7', 'Gb-b6', 'Db-']
     A		Db7		Db7		( C6 )		['Ebh9', 'Ebh', 'Db-6', 'Db-', 'A^7']
     Eb7		C7		F-7		( D7 )		['A6', 'Ebh', 'Db-', 'Gb+', 'A']
     A7		Eh		A7		( Bb^7 )	['Ebo', 'Ebo7', 'A6', 'Ebh', 'A+']
@@ -78,9 +78,8 @@ Below I've presented a result of model prediction. In the last column I'm showin
 Another example of song generated from initial sequence 
 
 ```
-Sample Song
-F^7	|	E-7	|	A7	|	A6	|	
-A6	|	Ebh	|	A6	|	G7	|	
-G7	|	A^7	|	A^7	|	A^7	|	
-Ebh	|	A6	|	A6	|	A^7	|	
+IN: ( A^7		|	F#7 |	B-7	|	E7	|	) 
+ 			A6		|	E7	|	A6	|	G7	|	  
+OUT: 	G7		|	A^7	|	E7	|	A^7	|	  
+  		Eb-7b5|	E7	|	A6	|	A^7	|	  
 ```

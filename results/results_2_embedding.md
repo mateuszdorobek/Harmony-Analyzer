@@ -33,30 +33,33 @@ V/V-V_progression test generation.
 less_common_progression test generation.
 	others with all keys randomly chosen 10%
 ```
+**Multihot - Total accuracy: 0.6%**
 
 ```
-Accuracy for Word2Vec:
-
-root_change: 1.8% (1594/88572)
-chord_type_change: 5.6% (27133/483120)
-V-I_progression: 3.0% (4/132)
-II-V_progression: 80.3% (106/132)
-V/V-V_progression: 13.6% (18/132)
-less_common_progression: 2.0% (9686/480288)
-
-Total accuracy: 3.7% (38541/1052376)
+root_change: 0.0%
+chord_type_change: 1.3%
+V-I_progression: 0.0% 
+II-V_progression: 0.0%
+V/V-V_progression: 0.0%
+less_common_progression: 0.0% 
 ```
+**Word2Vec - Total accuracy: 3.7%**
 
 ```
-Accuracy for FastText:
-
-root_change: 3.0% (2700/88572)
-chord_type_change: 21.8% (105189/483120)
-V-I_progression: 23.5% (31/132)
-II-V_progression: 79.5% (105/132)
-V/V-V_progression: 0.0% (0/132)
-less_common_progression: 3.3% (15820/480288)
-
-Total accuracy: 11.8% (123845/1052376)
+root_change: 1.8%
+chord_type_change: 5.6%
+V-I_progression: 3.0%
+II-V_progression: 80.3%
+V/V-V_progression: 13.6%
+less_common_progression: 2.0%
+```
+**FastText - Total accuracy: 11.8%**
+```
+root_change: 3.0%
+chord_type_change: 21.8%
+V-I_progression: 23.5%
+II-V_progression: 79.5%
+V/V-V_progression: 0.0%
+less_common_progression: 3.3%
 ```
 
