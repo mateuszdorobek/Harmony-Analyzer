@@ -17,49 +17,34 @@ multihot_no_bass_full (33)
 
 # **Testowanie**:
 
-Opis plików testowych
+Liczba pobranych utworów: 2137
+Liczba utworów po augmentacji: 25644
+Łączna liczba akordów po kolei 1243944
+Średnia liczba akordów na utwór: 48.51
+Liczba typów akordów: 62
+Liczba dźwieków podstawowych akordu: 12
+Liczba możliwych akordów (rozmiar słownika): 744
 
-```
-root_change test generation. 
-	C7 D7 F7 G7
-chord_type_change test generation.
-	C-7 C^7 D-7 D^7
-V-I_progression test generation.
-	C7 F^7 D7 G^7
-II-V_progression test generation.
-	C-7 F7 D-7 G7
-V/V-V_progression test generation.
-	C7 F7 D7 G7
-less_common_progression test generation.
-	others with all keys randomly chosen 10%
-```
-**Multihot - Total accuracy: 0.6%**
 
-```
-root_change: 0.0%
-chord_type_change: 1.3%
-V-I_progression: 0.0% 
-II-V_progression: 0.0%
-V/V-V_progression: 0.0%
-less_common_progression: 0.0% 
-```
-**Word2Vec - Total accuracy: 3.7%**
+Analogies score - top 5 - 
 
-```
-root_change: 1.8%
-chord_type_change: 5.6%
-V-I_progression: 3.0%
-II-V_progression: 80.3%
-V/V-V_progression: 13.6%
-less_common_progression: 2.0%
-```
-**FastText - Total accuracy: 11.8%**
-```
-root_change: 3.0%
-chord_type_change: 21.8%
-V-I_progression: 23.5%
-II-V_progression: 79.5%
-V/V-V_progression: 0.0%
-less_common_progression: 3.3%
-```
+Embedding Size Comparition - przy window_size=2:
+MultihotEmbedding 0.002560819462227913 33
+Word2Vec CBOW 0.28169014084507044 13
+Word2Vec Skip-Gram 0.2752880921895006 14
+FastText 0.31241997439180536 13
 
+Embedding Window Comparition - dla najlepszych size z poprzedniego:
+Word2Vec CBOW 0.28169014084507044 2
+Word2Vec Skip-Gram 0.2791293213828425 2
+FastText 0.30985915492957744 2
+
+
+Najlepszy FastText 13, 2
+
+root_change : 3.05%
+chord_type_change : 16.8%
+V-I_progression : 52.27%
+II-V_progression : 100.0%
+V/V-V_progression : 4.55%
+less_common_progression : 2.33%

@@ -167,7 +167,8 @@ if __name__ == "__main__":
     sentences = my_utils.build_sentences()
     w2v = Word2Vec.load("embeddings/word2vec.model")
     ft = FastText.load("./embeddings/fastText.model")
-    mh = MultihotEmbedding(sentences=sentences, size=33)
+    ft.wv.accuracy()
+    mh = MultihotEmbedding(sentences=sentences)
     # mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
     logging.basicConfig(format='%(message)s', level=logging.INFO)
     for m in [w2v, ft, mh]:

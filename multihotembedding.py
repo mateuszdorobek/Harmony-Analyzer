@@ -24,7 +24,7 @@ class MultihotEmbedding:
                 s.update(set(row))
             self.vocab = dict.fromkeys(s, 0)
             for key in self.vocab.keys():
-                encoding = my_utils.multihot(my_utils.get_components([key]), size=33)[0]
+                encoding = my_utils.multihot(my_utils.get_components([key]))[0]
                 self.vocab[key] = encoding
             self.index2word = list(self.vocab.keys())
             self.vectors = np.array(list(self.vocab.values()))
@@ -333,16 +333,15 @@ class MultihotEmbedding:
             # Return the overall score and the full lists of correct and incorrect analogies
             return analogies_score, sections
 
-    def __init__(self, sentences=[], size=0):
+    def __init__(self, sentences=[]):
         self.wv = self.Wv(sentences)
-        self.vector_size = size
 
     def similarity(self, a, b):
         return self.wv.similarity(a, b)
 
     def __str__(self):
         return "%s(vocab=%s, size=%s)" % (
-            self.__class__.__name__, len(self.wv.vocab), self.vector_size
+            self.__class__.__name__, len(self.wv.vocab), 33
         )
 
     # TODO not working - check testing_embeddings
