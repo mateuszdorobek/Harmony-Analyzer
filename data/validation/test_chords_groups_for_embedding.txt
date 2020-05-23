@@ -1,4 +1,4 @@
-Jazz Chords Embedding - Circle of Fifths;"['C7','Db7','D7','Eb7','E7','F7','Gb7','G7','Ab7','A7','Bb7','B7']"
+Dominant Chords;"['C7','Db7','D7','Eb7','E7','F7','Gb7','G7','Ab7','A7','Bb7','B7']"
 Major Chords;"['C^7','Db^7','D^7','Eb^7','E^7','F^7','Gb^7','G^7','Ab^7','A^7','Bb^7','B^7']"
 Minor Chords;"['C-7','Db-7','D-7','Eb-7','E-7','F-7','Gb-7','G-7','Ab-7','A-7','Bb-7','B-7']"
 Dominants and Majors;"['C7','Db7','D7','Eb7','E7','F7','Gb7','G7','Ab7','A7','Bb7','B7','C^7','Db^7','D^7','Eb^7','E^7','F^7','Gb^7','G^7','Ab^7','A^7','Bb^7','B^7']"

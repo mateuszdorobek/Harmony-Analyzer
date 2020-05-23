@@ -1,6 +1,5 @@
 import ast
 import logging
-import random
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -157,21 +156,37 @@ def generate_validation_file(file_name):
     pd.DataFrame(test_list).to_csv("data/validation/" + file_name, header=None, index=False)
 
 
+def get_model_name(model, stripped=False):
+    model_name = str(model).split("(")[0]
+    if model_name == "Word2Vec":
+        if model.sg:
+            model_name += " Skip-Gram"
+        else:
+            model_name += " CBOW"
+    embedding_size = str(model).split("=")[2].split(",")[0]
+    model_name += " Size: " + embedding_size
+    model_name = model_name.replace(")", "")
+    if stripped:
+        model_name = model_name.replace(":", "").replace(" ", "").replace("-", "")
+    return model_name
+
+
 def print_accuracy(model, word_analogies_file):
-    print(str(model).split("(")[0], "accuracy:")
-    model.wv.evaluate_word_analogies(word_analogies_file)
+    score = round(model.wv.evaluate_word_analogies(word_analogies_file)[0], 4)
+    model_name = get_model_name(model)
+    print(model_name, score)
 
 
 if __name__ == "__main__":
     # generate_validation_file(file_name="test_chords_double_pairs.txt")
     sentences = my_utils.build_sentences()
-    w2v = Word2Vec.load("embeddings/word2vec.model")
-    ft = FastText.load("./embeddings/fastText.model")
-    ft.wv.accuracy()
-    mh = MultihotEmbedding(sentences=sentences)
-    # mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
+    ft = FastText.load("embeddings/fastText.model")
+    w2vCBOW = Word2Vec.load("embeddings/word2vecCBOW.model")
+    w2vSG = Word2Vec.load("embeddings/word2vecSG.model")
+    # mh = MultihotEmbedding(sentences=sentences)
+    mh = MultihotEmbedding.load("embeddings/multihotembedding.model")
     logging.basicConfig(format='%(message)s', level=logging.INFO)
-    for m in [w2v, ft, mh]:
+    for m in [w2vCBOW, w2vSG, ft, mh]:
         print_accuracy(m, "data/validation/test_chords_double_pairs.txt")
         # plot_test_cases(m)
         # print(m.wv.most_similar('C7')[:5])
