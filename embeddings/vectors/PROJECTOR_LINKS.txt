@@ -1,0 +1,6 @@
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/5262d6c44dca7db3df284c9657b2d6cc/raw/fc8c5a363347db047ce214ac4d76cb887dddfb9b/Word2VecSkipGramSize70_projector_config.json
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/b04b97652ae888341feb300a0123d8cf/raw/c6a507268bfb3417c2d11d717e65239e7d2b7504/Word2VecSkipGramSize14_projector_config.json
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/b3ecca37320f23e448b51d2e377fc0b3/raw/f79ef1084f4696ac5f1969c7a5ddc0d289681e12/Word2VecCBOWSize70_projector_config.json
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/b82b2072cd200067f75bb54518b7a5a1/raw/6e06447ec1c21992886e64e09835dc21dd019e29/Word2VecCBOWSize13_projector_config.json
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/c969c06ef0f255cc3613c5769152ab30/raw/2379d72a356d07ed92ab73c551ca42328614c3ae/FastTextSize13_projector_config.json
+https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/SaxMan96/8587062e23a8a4edda38c0fc586a192d/raw/cf5a3092360354848ecd4b217696636cd672f6c0/FastTextSize70_projector_config.json
