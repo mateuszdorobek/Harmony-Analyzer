@@ -2,5 +2,4 @@ Dominant Chords;"['C7','Db7','D7','Eb7','E7','F7','Gb7','G7','Ab7','A7','Bb7','B
 Major Chords;"['C^7','Db^7','D^7','Eb^7','E^7','F^7','Gb^7','G^7','Ab^7','A^7','Bb^7','B^7']"
 Minor Chords;"['C-7','Db-7','D-7','Eb-7','E-7','F-7','Gb-7','G-7','Ab-7','A-7','Bb-7','B-7']"
 Dominants and Majors;"['C7','Db7','D7','Eb7','E7','F7','Gb7','G7','Ab7','A7','Bb7','B7','C^7','Db^7','D^7','Eb^7','E^7','F^7','Gb^7','G^7','Ab^7','A^7','Bb^7','B^7']"
-Half-diminished Chords;"['Ch7','Dbh7','Dh7','Ebh7','Eh7','Fh7','Gbh7','Gh7','Abh7','Ah7','Bbh7','Bh7']"
 II-V-I Chords;"['D-7','G7','C^7','E-7','A7','D^7','Gb-7','B7','E^7']"

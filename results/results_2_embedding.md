@@ -48,3 +48,13 @@ V-I_progression : 52.27%
 II-V_progression : 100.0%
 V/V-V_progression : 4.55%
 less_common_progression : 2.33%
+
+
+
+|                      | w2vCBOW          | w2vSG | ft   | mh                | w2vCBOW70 | w2vSG70 |
+| -------------------- | ---------------- | ----- | ---- | ----------------- | --------- | ------- |
+| Circle of Fifths     | Rzadkie i częste | X     | X    | Losowo            | X         | NAJS    |
+| Major Chords         | Rzadkie i częste | X     | X    | X                 | X         | NAJS    |
+| Minor Chords         | Rzadkie i częste | X     | X    | X                 | X         | X       |
+| Dominants and Majors | Obok             | nie   | Obok | Blisko moll i maj | X         | X       |
+| II-V-I Chords        | Obok             | X     | Obok |                   | Blisko    | X       |

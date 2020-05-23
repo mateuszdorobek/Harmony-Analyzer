@@ -163,8 +163,16 @@ def get_model_name(model, stripped=False):
             model_name += " Skip-Gram"
         else:
             model_name += " CBOW"
+
     embedding_size = str(model).split("=")[2].split(",")[0]
     model_name += " Size: " + embedding_size
+    
+    try:
+        window = str(model.window)
+    except:
+        window = ""
+    model_name += " Window: " + window
+    
     model_name = model_name.replace(")", "")
     if stripped:
         model_name = model_name.replace(":", "").replace(" ", "").replace("-", "")
