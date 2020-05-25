@@ -83,3 +83,29 @@ IN: ( A^7		|	F#7 |	B-7	|	E7	|	)
 OUT: 	G7		|	A^7	|	E7	|	A^7	|	  
   		Eb-7b5|	E7	|	A6	|	A^7	|	  
 ```
+
+LSTM Variable length 
+    https://stackoverflow.com/a/44278592/8081835
+    https://datascience.stackexchange.com/a/27879/97730
+    https://adventuresinmachinelearning.com/keras-lstm-tutorial/
+
+```python
+# define the LSTM model
+model = Sequential()
+model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2])))
+model.add(Dropout(0.2)) #TO
+model.add(Dense(y.shape[1], activation='softmax'))  #TO
+model.compile(loss='categorical_crossentropy', optimizer='adam') #TO
+```
+
+```python
+checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
+callbacks_list = [checkpoint]
+```
+
+```
+stateful=False,
+return_sequences=False
+```
+
+Normalization of embedding https://stats.stackexchange.com/questions/177905/should-i-normalize-word2vecs-word-vectors-before-using-them?newreg=116e6602332046e1a4b5fbde04b42f2e
