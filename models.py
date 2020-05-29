@@ -50,6 +50,7 @@ def plot_loss(history, metric_name):
 
 
 def save_model(model, model_name):
+    model._name = model_name
     model_json = model.to_json()
     with open("models/" + model_name + ".json", "w") as json_file:
         json_file.write(model_json)
