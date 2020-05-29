@@ -1,2 +1,3 @@
 /models/
 /embeddings/*.npy
+/embeddings/*.model
