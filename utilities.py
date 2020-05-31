@@ -1,14 +1,15 @@
-from bs4 import BeautifulSoup
-import urllib
-import re
+import ast
 import json
-from pyRealParser import Tune
+import re
+import urllib
+
 import pandas as pd
 import pychord
+from bs4 import BeautifulSoup
+from pyRealParser import Tune
+from tqdm.notebook import tqdm
+
 from qualities import ENHARMONICS
-import ast
-import six
-import logging
 
 
 def get_song_urls(web_links):
@@ -108,9 +109,18 @@ def extract_meta_data(songs_urls):
     df.drop_duplicates(subset="title", inplace=True)
     return df
 
-def build_sentences():
-    df = pd.read_csv("data/chords_string_rep_no_bass_aug_12.csv")
-    return [ast.literal_eval(chords_string) for chords_string in df["chords"]]
+
+def build_sentences(aug=True):
+    if aug:
+        df = pd.read_csv("data/chords_string_rep_no_bass_aug_12.csv")
+        desc = "Building Sentences Augmented"
+    else:
+        df = pd.read_csv("data/chords_string_rep_no_bass.csv")
+        desc = "Building Sentences"
+    sentences = []
+    for chords_string in tqdm(df["chords"], total=len(df["chords"]), desc=desc):
+        sentences.append(ast.literal_eval(chords_string))
+    return sentences
 
 # Following function is from Genism package 
 # Authored by Shiva Manne
